@@ -6,10 +6,11 @@
             @update:valueText="newTask.title = $event"
             placeholderText="Введите название задачи"
         />
-        <Input
+        <Textarea
             :valueText="newTask.content"
             @update:valueText="newTask.content = $event"
             placeholderText="Введите описание задачи"
+            class="content-input"
         />
         <Button
             buttonText="Создать задачу"
@@ -21,6 +22,7 @@
 <script>
 import Input from '@/Components/UI/Input.vue'
 import Button from '@/Components/UI/Button.vue'
+import Textarea from '@/Components/UI/Textarea.vue'
 
 export default {
     data() {
@@ -31,13 +33,26 @@ export default {
             },
         }
     },
+    props: {
+        propsTasks: Array
+    },
     components: {
         Input,
-        Button
+        Button,
+        Textarea
     },
     methods: {
-        createTask() {
-            alert(`id: ${Math.floor(Math.random() * 100000)}, title: ${this.newTask.title}, content: ${this.newTask.content}, completed: ${false}`)
+        createTask(event) {
+            let newTasks = this.propsTasks
+            newTasks.push({
+                id: Math.floor(Math.random() * 100000),
+                title: this.newTask.title,
+                content: this.newTask.content,
+                completed: false
+            })
+            this.$emit('update', newTasks)
+            this.newTask.title = ''
+            this.newTask.content = ''
         }
     }
 }
@@ -58,9 +73,12 @@ form {
         height: 10% !important;
         width: 60% !important;
     }
-    input {
+    input[type="text"]{
         height: 10% !important;
         width: 60% !important;
+    }
+    .content-input {
+        height: 40% !important;
     }
 }
 </style>

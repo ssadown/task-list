@@ -1,10 +1,17 @@
 <template>
-    <div class="task-list__wrapper">
+    <div class="task-list__wrapper" v-if="propsTasks.length === 0">
+        <h1>Все задачи выполнены!</h1>
+    </div>
+    <div class="task-list__wrapper" v-else>
+        <h1>Задачи</h1>
         <TaskBlock 
-        v-for="task in propsTasks" 
-        :key='task.id'
-        :propsTask="task"
-        />
+            v-for="task in propsTasks" 
+            :key='task.id'
+            :propsForCurrentTask="task"
+            :propsTasks="propsTasks"
+            :propsDeleteTask="deleteTask"
+            @update:propsTasks="propsTasks.completed = $event"
+        />           
     </div>
 </template>
 
@@ -13,11 +20,18 @@ import TaskBlock from '@/Components/TaskBlock.vue'
 
 export default {
     props: {
-        propsTasks: Array
+        propsTasks: Array,
     },
     components: {
         TaskBlock
-    }
+    },
+    methods: {
+            deleteTask (id) {
+                let newTasks = this.propsTasks.filter(task => task.id !== id)
+                console.log(newTasks)
+                this.$emit('update:propsTasks', newTasks)
+            }
+        },
 }
 </script>
 
@@ -31,7 +45,7 @@ export default {
     flex-direction: column;
     overflow-y: scroll;
     h1 {
-        color: white;
+        margin-top: 20px;
         font-size: 200%;
     }
     button {

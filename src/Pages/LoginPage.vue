@@ -9,6 +9,7 @@
             :valueText="passwordValue"
             @update:valueText="passwordValue = $event"
             placeholderText="Введите пароль"
+            type="password"
         />  
         <Button
                 buttonText="Войти"

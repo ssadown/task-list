@@ -21,6 +21,7 @@ export default {
   }
   body, html {
     min-height: 100%;
+    overflow: hidden;
   }
   #app {
     min-height: 100%;

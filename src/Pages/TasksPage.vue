@@ -1,9 +1,13 @@
 <template>
     <div class="wrapper">
         <div class="tasks-page__wrapper">
-            <PostForm/>
+            <PostForm
+            :propsTasks="tasks"
+            @update="tasks = $event"
+            />
             <TaskList
             :propsTasks="tasks"
+            @update:propsTasks="tasks = $event"
             />
         </div>
     </div>
@@ -35,7 +39,7 @@ export default {
                 content: 'Содержание',
                 completed: true
             },
-        ]
+        ],
         }
     },
     components: {

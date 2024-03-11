@@ -1,5 +1,5 @@
 <template>
-    <input
+    <textarea
     :placeholder="placeholderText"
     type="text"
     :value="valueText"
@@ -22,14 +22,15 @@ export default {
 </script>
 
 <style>
-input {
-    width: 30%;
-    height: 10%;
+textarea {
+    width: 60%;
+    height: 40%;
     margin-top: 40px;
     border: 1px solid rgb(0, 13, 18);
     outline: 0;
     border-radius: 16px;
     text-indent: 15px;
     font-size: 100%;
+    max-width: 550px;
 }
 </style>
