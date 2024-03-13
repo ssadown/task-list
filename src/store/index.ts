@@ -11,9 +11,6 @@ export default createStore({
   getters: {
   },
   mutations: {
-    setTasks(state, tasks) {
-      state.tasks = tasks 
-    },
     deleteTask (state, id) {
       state.tasks = state.tasks.filter(removeTask => removeTask.id !== id)
     }
@@ -21,7 +18,7 @@ export default createStore({
   actions: {
     deleteTask (context, id) {
         context.commit('deleteTask', id)
-    }
+    },
 },
   modules: {
   }

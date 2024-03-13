@@ -10,9 +10,6 @@ exports["default"] = vuex_1.createStore({
     },
     getters: {},
     mutations: {
-        setTasks: function (state, tasks) {
-            state.tasks = tasks;
-        },
         deleteTask: function (state, id) {
             state.tasks = state.tasks.filter(function (removeTask) { return removeTask.id !== id; });
         }

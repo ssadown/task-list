@@ -10,12 +10,19 @@
 <script>
 import PostForm from '@/Components/PostForm.vue'
 import TaskList from '@/Components/TaskList.vue'
+import { mapState } from 'vuex'
 
 export default {
     components: {
         PostForm,
         TaskList
-    }
+    },
+    computed: {
+        ...mapState({
+            tasks: state => state.tasks
+        })
+    },
+
 }
 </script>
 

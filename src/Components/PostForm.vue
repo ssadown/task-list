@@ -47,16 +47,29 @@ export default {
     methods: {
         createTask() {
             if (this.newTask.title !== '' && this.newTask.content !== '') {
-                this.tasks.push({
-                id: Math.floor(Math.random() * 100000),
-                title: this.newTask.title,
-                content: this.newTask.content,
-                completed: false
-            })
-            this.newTask.title = ''
-            this.newTask.content = ''
-            this.errorForm.errorTitle = false
-            this.errorForm.errorContent = false
+                let addTask = {
+                    id: Math.floor(Math.random() * 100000),
+                    title: this.newTask.title,
+                    content: this.newTask.content,
+                    completed: false
+                }
+                let isDuplicate = false;
+                for (let i = 0; i < this.tasks.length; i++) {
+                    if (addTask.id === this.tasks[i].id) {
+                        addTask.id = Math.floor(Math.random() * 100000);
+                        i = -1; 
+                        isDuplicate = true;
+                    } else {
+                        isDuplicate = false
+                    }
+                }
+                if (!isDuplicate) {
+                    this.tasks.push(addTask);
+                }
+                this.newTask.title = ''
+                this.newTask.content = ''
+                this.errorForm.errorTitle = false
+                this.errorForm.errorContent = false
             } else if(this.newTask.title === '' && this.newTask.content === '') {
                 this.errorForm.errorTitle = true
                 this.errorForm.errorContent = true
