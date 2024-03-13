@@ -4,19 +4,22 @@
     </div>
     <div class="task-list__wrapper" v-else>
         <h1>Задачи</h1>
-        <TaskBlock 
-            v-for="task in $store.state.tasks" 
+        <transition-group name="task">
+            <TaskBlock 
+            v-for="task in tasks" 
             :key='task.id'
             :propsForCurrentTask="task"
-            :propsTasks="propsTasks"
             :propsDeleteTask="deleteTask"
-            @update:propsTasks="propsTasks.completed = $event"
-        />           
+            @update:propsTasks="tasks.completed = $event"
+            @remove="deleteTask"
+        />   
+        </transition-group>        
     </div>
 </template>
 
 <script>
 import TaskBlock from '@/Components/TaskBlock.vue'
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -24,11 +27,14 @@ export default {
     },
     methods: {
             deleteTask (id) {
-                let newTasks = this.propsTasks.filter(task => task.id !== id)
-                console.log(newTasks)
-                this.$emit('update:propsTasks', newTasks)
+                this.$store.dispatch('deleteTask', id)
             }
         },
+    computed: {
+        ...mapState({
+            tasks: state => state.tasks
+        })
+    }
 }
 </script>
 
@@ -41,6 +47,7 @@ export default {
     align-items: center;
     flex-direction: column;
     overflow-y: scroll;
+    overflow-x: hidden;
     h1 {
         margin-top: 20px;
         font-size: 200%;
@@ -52,6 +59,18 @@ export default {
     input {
         height: 10% !important;
         width: 60% !important;
+    }
+    .task-enter-active,
+    .task-leave-active {
+        transition: all 0.4s ease;
+    }
+    .task-enter-from,
+    .task-leave-to {
+        opacity: 0;
+        transform: translateX(130px);
+    }
+    .task-move {
+        transition: transform 0.4s ease;
     }
 }
 </style>

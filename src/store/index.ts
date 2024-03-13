@@ -1,28 +1,10 @@
 import { createStore } from 'vuex'
+import taskInterface from '@/Interfaces/taskInterface'
 
 export default createStore({
   state: {
     isLogin: false,
-    tasks: [
-      {
-        id: 1,
-        title: 'Название задачи №1',
-        content: 'Содержание',
-        completed: false
-    },
-    {
-        id: 2,
-        title: 'Название задачи №2',
-        content: 'Содержание',
-        completed: false
-    },
-    {
-        id: 3,
-        title: 'Название задачи №3',
-        content: 'Содержание',
-        completed: true
-    },
-    ],
+    tasks: <taskInterface[]>[],
     users: [],
     currentUser: {}
   },
@@ -32,12 +14,15 @@ export default createStore({
     setTasks(state, tasks) {
       state.tasks = tasks 
     },
-    addTask(state, newTask) {
-      state.tasks.push(newTask)
+    deleteTask (state, id) {
+      state.tasks = state.tasks.filter(removeTask => removeTask.id !== id)
     }
   },
   actions: {
-  },
+    deleteTask (context, id) {
+        context.commit('deleteTask', id)
+    }
+},
   modules: {
   }
 })

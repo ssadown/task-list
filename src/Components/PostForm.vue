@@ -2,14 +2,12 @@
     <form @submit.prevent>
         <h1>Создать новую задачу</h1>
         <Input
-            :valueText="newTask.title"
-            @update:valueText="newTask.title = $event"
+            v-model="newTask.title"
             placeholderText="Введите название задачи"
         />
         <p class="error-text" v-show="errorForm.errorTitle">Вы не заполнили название задачи!</p>
         <Textarea
-            :valueText="newTask.content"
-            @update:valueText="newTask.content = $event"
+            v-model="newTask.content"
             placeholderText="Введите описание задачи"
             class="content-input"
         />

@@ -2,7 +2,7 @@
     <input
     :placeholder="placeholderText"
     type="text"
-    :value="valueText"
+    :value="modelValue"
     @input="updateValue"
 />
 </template>
@@ -10,12 +10,12 @@
 <script>
 export default {
     props: {
-        valueText: String,
+        modelValue: [String, Number],
         placeholderText: String
     },
     methods: {
         updateValue(event) {
-            this.$emit('update:valueText', event.target.value)
+            this.$emit('update:modelValue', event.target.value)
         }
     }
 }

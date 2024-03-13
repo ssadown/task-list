@@ -2,7 +2,7 @@
     <textarea
     :placeholder="placeholderText"
     type="text"
-    :value="valueText"
+    :value="modelValue"
     @input="updateValue"
 />
 </template>
@@ -10,12 +10,12 @@
 <script>
 export default {
     props: {
-        valueText: String,
+        modelValue: String,
         placeholderText: String
     },
     methods: {
         updateValue(event) {
-            this.$emit('update:valueText', event.target.value)
+            this.$emit('update:modelValue', event.target.value)
         }
     }
 }
@@ -31,6 +31,6 @@ textarea {
     border-radius: 16px;
     text-indent: 15px;
     font-size: 100%;
-    max-width: 550px;
+    max-width: 55modelValue0px;
 }
 </style>

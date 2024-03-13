@@ -27,7 +27,7 @@ export default {
         },
 
         deleteTask() {
-            this.propsDeleteTask(this.propsForCurrentTask.id)
+            this.$emit('remove', this.propsForCurrentTask.id)
         }
     }
 }
@@ -44,6 +44,7 @@ export default {
         border: 2px solid rgb(0, 13, 18);
         border-radius: 16px;
         transition-duration: 0.4s;
+        min-height: 120px;
         h1 {
             font-size: 150%;
         }
