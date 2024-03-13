@@ -28,6 +28,7 @@ export default {
     methods: {
             deleteTask (id) {
                 this.$store.dispatch('deleteTask', id)
+                localStorage.setItem('tasks', JSON.stringify(this.tasks))
             }
         },
     computed: {

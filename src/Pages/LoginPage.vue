@@ -1,19 +1,13 @@
 <template>
     <div class="wrapper">
         <Input
-            :valueText="loginValue"
-            @update:valueText="loginValue = $event"
-            placeholderText="Введите логин"
-        />    
-        <Input
-            :valueText="passwordValue"
-            @update:valueText="passwordValue = $event"
-            placeholderText="Введите пароль"
-            type="password"
-        />  
+            v-model.trim="loginValue"
+            placeholderText="Введите имя пользователя"
+        />
+        <p class="error-text" v-show="errorLogin">Вы не ввели имя пользователя!</p>    
         <Button
                 buttonText="Войти"
-                @click="login"
+                @click="() => {login(this.loginValue)}"
         />
     </div>
 </template>
@@ -21,12 +15,13 @@
 <script>
 import Button from '@/Components/UI/Button.vue'
 import Input from '@/Components/UI/Input.vue'
+import { mapState } from 'vuex'
 
 export default {
     data() {
         return {
             loginValue: '',
-            passwordValue: '',
+            errorLogin: false
         }
     },
     components: {
@@ -34,10 +29,24 @@ export default {
         Input
     },
     methods: {
-        login() {
-            alert(this.loginValue + ' ' + this.passwordValue)
-            this.$router.push('/alltasks')
+        login(loginValue) {
+            if (this.loginValue !== '') {
+                localStorage.setItem('currentUser', loginValue)
+                this.$store.dispatch('setUser', loginValue)
+                localStorage.setItem('isLogin', true)
+                this.$store.dispatch('setLogin', true)
+                this.errorLogin = false
+                this.$router.push('/alltasks')
+            } else {
+                this.errorLogin = true
+            }
         }
+    },
+    computed: {
+        ...mapState({
+            currentUser: state => state.currentUser,
+            isLogin: state => state.isLogin
+        })
     }
 }
 </script>
@@ -52,5 +61,9 @@ input {
     border-radius: 16px;
     text-indent: 15px;
     font-size: 100%;
+}
+.error-text {
+    font-size: 2vh;
+    color: red;
 }
 </style>

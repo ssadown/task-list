@@ -2,12 +2,12 @@
     <form @submit.prevent>
         <h1>Создать новую задачу</h1>
         <Input
-            v-model="newTask.title"
+            v-model.trim="newTask.title"
             placeholderText="Введите название задачи"
         />
         <p class="error-text" v-show="errorForm.errorTitle">Вы не заполнили название задачи!</p>
         <Textarea
-            v-model="newTask.content"
+            v-model.trim="newTask.content"
             placeholderText="Введите описание задачи"
             class="content-input"
         />
@@ -38,7 +38,6 @@ export default {
             }
         }
     },
-
     components: {
         Input,
         Button,
@@ -65,6 +64,7 @@ export default {
                 }
                 if (!isDuplicate) {
                     this.tasks.push(addTask);
+                    localStorage.setItem('tasks', JSON.stringify(this.tasks))
                 }
                 this.newTask.title = ''
                 this.newTask.content = ''
