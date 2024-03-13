@@ -1,11 +1,11 @@
 <template>
-    <div class="task-list__wrapper" v-if="propsTasks.length === 0">
+    <div class="task-list__wrapper" v-if="$store.state.tasks.length === 0">
         <h1>Все задачи выполнены!</h1>
     </div>
     <div class="task-list__wrapper" v-else>
         <h1>Задачи</h1>
         <TaskBlock 
-            v-for="task in propsTasks" 
+            v-for="task in $store.state.tasks" 
             :key='task.id'
             :propsForCurrentTask="task"
             :propsTasks="propsTasks"
@@ -19,9 +19,6 @@
 import TaskBlock from '@/Components/TaskBlock.vue'
 
 export default {
-    props: {
-        propsTasks: Array,
-    },
     components: {
         TaskBlock
     },

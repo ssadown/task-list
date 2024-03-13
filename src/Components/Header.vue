@@ -23,6 +23,5 @@ export default {
             font-size: 300%;
             
         }
-        box-shadow: 5px 15px 15px 3px rgba(131, 63, 63, 0.6);
     }
 </style>

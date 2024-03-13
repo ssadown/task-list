@@ -36,7 +36,7 @@ export default {
     methods: {
         login() {
             alert(this.loginValue + ' ' + this.passwordValue)
-            this.$router.push('/task')
+            this.$router.push('/alltasks')
         }
     }
 }

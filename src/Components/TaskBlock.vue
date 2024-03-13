@@ -18,7 +18,6 @@
 export default {
     props: {
         propsForCurrentTask: Object,
-        propsTasks: Array,
         propsDeleteTask: Function
     }, 
     methods: {

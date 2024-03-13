@@ -6,12 +6,14 @@
             @update:valueText="newTask.title = $event"
             placeholderText="Введите название задачи"
         />
+        <p class="error-text" v-show="errorForm.errorTitle">Вы не заполнили название задачи!</p>
         <Textarea
             :valueText="newTask.content"
             @update:valueText="newTask.content = $event"
             placeholderText="Введите описание задачи"
             class="content-input"
         />
+        <p class="error-text" v-show="errorForm.errorContent">Вы не заполнили описание задачи!</p>
         <Button
             buttonText="Создать задачу"
             @click="createTask"
@@ -23,6 +25,7 @@
 import Input from '@/Components/UI/Input.vue'
 import Button from '@/Components/UI/Button.vue'
 import Textarea from '@/Components/UI/Textarea.vue'
+import { mapState } from 'vuex'
 
 export default {
     data() {
@@ -31,29 +34,47 @@ export default {
                 title: '',
                 content: "",
             },
+            errorForm: {
+                errorTitle: false,
+                errorContent: false,
+            }
         }
     },
-    props: {
-        propsTasks: Array
-    },
+
     components: {
         Input,
         Button,
         Textarea
     },
     methods: {
-        createTask(event) {
-            let newTasks = this.propsTasks
-            newTasks.push({
+        createTask() {
+            if (this.newTask.title !== '' && this.newTask.content !== '') {
+                this.tasks.push({
                 id: Math.floor(Math.random() * 100000),
                 title: this.newTask.title,
                 content: this.newTask.content,
                 completed: false
             })
-            this.$emit('update', newTasks)
             this.newTask.title = ''
             this.newTask.content = ''
-        }
+            this.errorForm.errorTitle = false
+            this.errorForm.errorContent = false
+            } else if(this.newTask.title === '' && this.newTask.content === '') {
+                this.errorForm.errorTitle = true
+                this.errorForm.errorContent = true
+            } else if (this.newTask.title === '') {
+                this.errorForm.errorTitle = true
+                this.errorForm.errorContent = false
+            } else if (this.newTask.content === '') {
+                this.errorForm.errorTitle = false
+                this.errorForm.errorContent = true
+            }
+        },
+    },
+    computed: {
+        ...mapState({
+            tasks: state => state.tasks
+        })
     }
 }
 </script>
@@ -79,6 +100,11 @@ form {
     }
     .content-input {
         height: 40% !important;
+    }
+    .error-text {
+        color: red;
+        font-size: 2vh;
+        margin-top: 10px;
     }
 }
 </style>
