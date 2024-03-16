@@ -4,6 +4,7 @@ var vuex_1 = require("vuex");
 exports["default"] = vuex_1.createStore({
     state: {
         tasks: [],
+        currentTask: {},
         currentUser: '',
         isLogin: false
     },
@@ -19,10 +20,21 @@ exports["default"] = vuex_1.createStore({
             state.currentUser = user;
         },
         setLogin: function (state, isLogin) {
-            state.currentUser = isLogin;
+            state.isLogin = isLogin;
+        },
+        setCurrentTask: function (state, task) {
+            state.currentTask = task;
+        },
+        setCompleted: function (state, id) {
+            state.tasks.find(function (task) { if (task.id === id) {
+                task.completed = !task.completed;
+            } });
         }
     },
     actions: {
+        setCompleted: function (context, id) {
+            context.commit('setCompleted', id);
+        },
         deleteTask: function (context, id) {
             context.commit('deleteTask', id);
         },
@@ -34,6 +46,9 @@ exports["default"] = vuex_1.createStore({
         },
         setLogin: function (context, isLogin) {
             context.commit('setLogin', isLogin);
+        },
+        setCurrentTask: function (context, task) {
+            context.commit('setCurrentTask', task);
         }
     },
     modules: {}

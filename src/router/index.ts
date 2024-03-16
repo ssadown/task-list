@@ -2,12 +2,13 @@ import LoginPage from '@/Pages/LoginPage.vue'
 import TasksPage from '@/Pages/TasksPage.vue'
 import CurrentTaskPage from '@/Pages/CurrentTaskPage.vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import PageNotFound from '@/Pages/PageNotFound.vue'
 
 
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/task-list',
     component: LoginPage
   },
   {
@@ -17,6 +18,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/alltasks/:id',
     component: CurrentTaskPage
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: PageNotFound
   }
 ]
 

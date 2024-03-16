@@ -1,11 +1,25 @@
 <template>
     <div class="task-block">
-        <h1>{{propsForCurrentTask.id}}</h1>
+        <router-link 
+        :to="`/alltasks/${propsForCurrentTask.id}`"
+        @click="() => {setTask()}"
+        >
+            <h1>
+                {{propsForCurrentTask.id}}
+            </h1>
+        </router-link>
         <h2>{{propsForCurrentTask.title}}</h2>
         <p class="task-content">{{propsForCurrentTask.content}}</p>
         <div class="task-block__complete-block">
             <div class="complete-block__checkbox">
-                <input type="checkbox" :id="['checkbox' + propsForCurrentTask.id]" class="checkbox" :checked="propsForCurrentTask.completed" :value="propsForCurrentTask.completed" @input="updateComplete">
+                <input 
+                type="checkbox" 
+                :id="['checkbox' + propsForCurrentTask.id]" 
+                class="checkbox" 
+                :checked="propsForCurrentTask.completed" 
+                :value="propsForCurrentTask.completed" 
+                @input="updateComplete"
+                >
                 <label :for="['checkbox' + propsForCurrentTask.id]">Выполнено</label>
             </div>
             <p :class="[propsForCurrentTask.completed ? 'task-complete' : 'task-not-complete']">{{propsForCurrentTask.completed ? 'Задача выполнена!' : 'Задача не выполнена!'}}</p>
@@ -15,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     props: {
         propsForCurrentTask: Object,
@@ -24,11 +39,22 @@ export default {
         updateComplete(event) {
             this.propsForCurrentTask.completed = event.target.checked;
             this.$emit('update:propsTask', event.target)
+            localStorage.removeItem('tasks')
+            localStorage.setItem('tasks', JSON.stringify(this.tasks))
         },
 
         deleteTask() {
             this.$emit('remove', this.propsForCurrentTask.id)
+        },
+        setTask() {
+            this.$store.dispatch('setCurrentTask', this.propsForCurrentTask)
+            console.log(this.$store.currentTask)
         }
+    },
+    computed: {
+        ...mapState({
+            tasks: state => state.tasks
+        })
     }
 }
 </script>
@@ -45,17 +71,33 @@ export default {
         border-radius: 16px;
         transition-duration: 0.4s;
         min-height: 120px;
+        margin-bottom: 20px;
         h1 {
             font-size: 150%;
+            cursor: pointer;
+        }
+        a {
+            text-decoration: none;
+            color:black;
+            transition-duration: 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+        a:hover {
+            animation: k-link-anim 0.8s linear infinite ;
+            border-bottom: 2px solid black;
         }
         h2 {
             font-size: 150%;
             width: 20%;
-            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         p {
             font-size: 100%;
-
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         label {
             font-size: 100%;
@@ -63,7 +105,7 @@ export default {
         }
         .task-content {
             width: 30%;
-            word-wrap: break-word;
+            max-height: 100%;
         }
         .task-complete {
             color: green;
@@ -86,7 +128,7 @@ export default {
         }
         .complete-block__checkbox {
             width: 100%;
-            height: 50%;
+            height: 25%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -94,11 +136,9 @@ export default {
                 margin: 0;
                 height: unset;
                 width: unset;
-                margin-right: 10px;
             }
         }
         .checkbox {
-            position: absolute;
             z-index: -1;
             opacity: 0;
         }
@@ -132,16 +172,13 @@ export default {
         .checkbox:not(:disabled):not(:checked)+label:hover::before {
             border-color: #b3d7ff;
         }
-          /* стили для активного состояния чекбокса (при нажатии на него) */
         .checkbox:not(:disabled):active+label::before {
             background-color: #b3d7ff;
             border-color: #b3d7ff;
         }
-          /* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
         .checkbox:focus:not(:checked)+label::before {
             border-color: rgb(0, 13, 18);
         }
-          /* стили для чекбокса, находящегося в состоянии disabled */
         .checkbox:disabled+label::before {
             background-color: rgb(0, 13, 18);
         }
@@ -164,6 +201,23 @@ export default {
             color: gray;
             background-color: rgb(26, 28, 29);
             cursor: not-allowed;
+        }
+    }
+    @keyframes k-link-anim {
+        0% {
+            
+        }
+        25% {
+            margin-bottom: 10px;
+        }
+        50% {
+            margin-bottom: 0;
+        }
+        75% {
+            margin-top: 10px;
+        }
+        100% {
+            margin-top: 0;
         }
     }
 </style>

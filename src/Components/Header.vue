@@ -3,9 +3,9 @@
     <h1 v-if="this.currentUser">{{ this.currentUser }}</h1>
     <h1>TaskList on Vue + TypeScript</h1>
     <Button
-    v-if="this.currentUser"
-    :buttonText="'Выйти'"
-    @click="() => {exitFromApp}"
+      v-if="this.currentUser"
+      :buttonText="'Выйти'"
+      @click="() => {exitFromApp()}"
     />
   </header>
 </template>
@@ -30,8 +30,8 @@ export default {
     setLogin(isLogin) {
             this.$store.dispatch('setLogin', isLogin)
         },
-    exitFromApp () {
-      this.$router.push('/')
+    exitFromApp() {
+      this.$router.push('/task-list')
       localStorage.removeItem('currentUser')
       localStorage.setItem('isLogin', false)
       this.setCurrentUser('')
@@ -51,8 +51,7 @@ export default {
         justify-content: space-around;
         align-items: center;
         h1 {
-            font-size: 300%;
-            
+            font-size: 200%;
         }
     }
     button {

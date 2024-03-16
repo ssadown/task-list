@@ -1,4 +1,3 @@
-
 <template>
   <Header/>
   <router-view/>
@@ -6,10 +5,32 @@
 
 <script>
 import Header from '@/Components/Header.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     Header
+  },
+  beforeMount () {
+    if(localStorage.getItem('currentUser')) {
+            this.setCurrentUser(localStorage.getItem('currentUser'))
+            localStorage.setItem('isLogin', true)
+            this.setLogin(true)
+        }
+  },
+  methods: {
+    setCurrentUser(user) {
+            this.$store.dispatch('setUser', user)
+        },
+    setLogin(isLogin) {
+        this.$store.dispatch('setLogin', isLogin)
+    }
+  },
+  computed: {
+    ...mapState({
+      isLogin: state => state.isLogin,
+      currentUser: state => state.currentUser
+    }),
   }
 }
 </script>

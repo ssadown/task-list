@@ -4,6 +4,7 @@ import taskInterface from '@/Interfaces/taskInterface'
 export default createStore({
   state: {
     tasks: <taskInterface[]>[],
+    currentTask: <taskInterface>{},
     currentUser: '',
     isLogin: false,
   },
@@ -20,10 +21,19 @@ export default createStore({
       state.currentUser = user
     },
     setLogin (state, isLogin) {
-      state.currentUser = isLogin
+      state.isLogin = isLogin
+    },
+    setCurrentTask(state, task) {
+      state.currentTask = task
+    },
+    setCompleted(state, id) {
+      state.tasks.find(task => {if (task.id === id) {task.completed = !task.completed}})
     }
   },
   actions: {
+    setCompleted(context, id) {
+      context.commit('setCompleted', id)
+    },
     deleteTask (context, id) {
         context.commit('deleteTask', id)
     },
@@ -35,7 +45,11 @@ export default createStore({
     },
     setLogin (context, isLogin) {
       context.commit('setLogin', isLogin)
-    }
+    },
+    setCurrentTask (context, task) {
+      context.commit('setCurrentTask', task)
+    },
+
 },
   modules: {
   }

@@ -4,9 +4,10 @@ var LoginPage_vue_1 = require("@/Pages/LoginPage.vue");
 var TasksPage_vue_1 = require("@/Pages/TasksPage.vue");
 var CurrentTaskPage_vue_1 = require("@/Pages/CurrentTaskPage.vue");
 var vue_router_1 = require("vue-router");
+var PageNotFound_vue_1 = require("@/Pages/PageNotFound.vue");
 var routes = [
     {
-        path: '/',
+        path: '/task-list',
         component: LoginPage_vue_1["default"]
     },
     {
@@ -16,6 +17,10 @@ var routes = [
     {
         path: '/alltasks/:id',
         component: CurrentTaskPage_vue_1["default"]
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: PageNotFound_vue_1["default"]
     }
 ];
 var router = vue_router_1.createRouter({
