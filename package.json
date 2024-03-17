@@ -2,12 +2,20 @@
   "name": "task-list",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ssadown.github.io/",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "deployConfig": {
+    "branch": "gh-pages",
+    "repo": "https://github.com/ssadown/task-list.git"
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "gh-pages": "^6.1.1",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",
