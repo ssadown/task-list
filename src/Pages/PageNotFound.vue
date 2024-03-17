@@ -18,6 +18,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+h1 {
+    font-size: 3vh;
+    text-align: center;
+}
+@media screen and (max-width: 1024px) {
+        button {
+            width: 80%;
+        }
+}
 
 </style>

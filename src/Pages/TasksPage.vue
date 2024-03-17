@@ -29,6 +29,9 @@ export default {
             localStorage.setItem('isLogin', true)
             this.setLogin(true)
         }
+        if(!currentUser) {
+            this.$router.push('/task-list')
+        }
     },
     methods: {
         setTasks (tasks) {
@@ -54,5 +57,12 @@ export default {
         height: 100%;
         width: 100%;
         display: flex;
+    }
+    @media screen and (max-width: 1030px) {
+        .tasks-page__wrapper {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     }
 </style>

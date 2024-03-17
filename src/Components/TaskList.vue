@@ -74,4 +74,9 @@ export default {
         transition: transform 0.4s ease;
     }
 }
+@media screen and (max-width: 1024px) {
+    .task-list__wrapper {
+        width: 100%;
+    }
+}
 </style>

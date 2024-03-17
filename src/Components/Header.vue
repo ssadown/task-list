@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1 v-if="this.currentUser">{{ this.currentUser }}</h1>
+    <h1 v-if="this.currentUser" class="current-user__header">{{ this.currentUser }}</h1>
     <h1>TaskList on Vue + TypeScript</h1>
     <Button
       v-if="this.currentUser"
@@ -18,7 +18,7 @@ export default {
   computed: {
     ...mapState({
       currentUser: state => state.currentUser
-    })
+    }),
   },
   components: {
     Button
@@ -70,5 +70,28 @@ export default {
   button:hover {
       background-color: white;
       color:rgb(0, 13, 18)
+  }
+  @media screen and (max-width: 600px){
+    .current-user__header {
+      display: none;
+    }
+    h1 {
+      font-size: 100% !important;
+      width: 65%;
+      text-align: center;
+    }
+    button {
+      width: 25%;
+      height: 50%;
+      margin-top: 0;
+      border: 1px solid white;
+      color: white;
+      outline: 0;
+      border-radius: 16px;
+      font-size: 100%;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background-color: transparent;
+  }
   }
 </style>

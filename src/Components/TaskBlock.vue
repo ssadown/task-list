@@ -111,12 +111,14 @@ export default {
             color: green;
             font-weight: bold;
             transition-duration: 0.4s;
+            font-size: 1.5vh;
         }
 
         .task-not-complete {
             color: red;
             font-weight: bold;
             transition-duration: 0.4s;
+            font-size: 1.5vh;
         }
         .task-block__complete-block {
             height: 100%;
@@ -185,13 +187,14 @@ export default {
         button {
             padding: 5px 10px;
             margin-top: 10px;
-            height: 20%;
+            height: 30%;
             width: 50%;
             border: 1px solid rgb(0, 13, 18);
             background-color: transparent;
             border-radius: 12px;
             transition-duration: 0.4s;
             cursor: pointer;
+            font-size: 1.3vh
         }
         button:hover {
             color:white;
@@ -218,6 +221,26 @@ export default {
         }
         100% {
             margin-top: 0;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        .task-block {
+            height: 60%;
+            min-height: 300px;
+            flex-direction: column;
+            h2 {
+                width: 100%;
+                text-align: center;
+            }
+            .task-content {
+                width: 100%;
+                max-height: 100%;
+                text-align: center;
+            }
+        }
+        .task-block__complete-block {
+            height: 40% !important;
+            width: 100% !important;
         }
     }
 </style>

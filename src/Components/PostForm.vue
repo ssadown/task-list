@@ -4,6 +4,7 @@
         <Input
             v-model.trim="newTask.title"
             placeholderText="Введите название задачи"
+            class="title-input"
         />
         <p class="error-text" v-show="errorForm.errorTitle">Вы не заполнили название задачи!</p>
         <Textarea
@@ -100,17 +101,18 @@ form {
     flex-direction: column;
     h1 {
         font-size: 200%;
+        text-align: center;
     }
     button {
-        height: 10% !important;
-        width: 60% !important;
+        height: 10% ;
+        width: 60% ;
     }
-    input[type="text"]{
-        height: 10% !important;
-        width: 60% !important;
+    .title-input{
+        height: 10% ;
+        width: 60% ;
     }
     .content-input {
-        height: 40% !important;
+        height: 40% ;
     }
     .error-text {
         color: red;
@@ -118,4 +120,40 @@ form {
         margin-top: 10px;
     }
 }
+@media screen and (max-width: 1030px) {
+    form {
+        height: 80%;
+        width: 100%;
+        min-height: 400px;
+        button {
+            height: 20%;
+        }
+    }
+    .title-input{
+        height: 20% !important;
+        width: 60%  !important;
+    }
+    .content-input {
+        height: 60% !important;
+    }
+}
+@media screen and (max-width: 400px) {
+    form {
+        height: 80%;
+        width: 100%;
+        min-height: 400px;
+        button {
+            height: 20%;
+        }
+    }
+    .title-input{
+        height: 20% !important;
+        width: 90%  !important;
+    }
+    .content-input {
+        height: 60% !important;
+        width: 90%;
+    }
+}
+
 </style>

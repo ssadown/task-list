@@ -66,4 +66,12 @@ input {
     font-size: 2vh;
     color: red;
 }
+@media screen and (max-width: 1024px) {
+    input {
+        width: 80%;
+    }
+    button {
+        width: 80%;
+    }
+}
 </style>

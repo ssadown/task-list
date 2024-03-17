@@ -30,9 +30,17 @@ export default {
     components: {
         Button
     },
+    created() {
+        const currentUser = localStorage.getItem('currentUser')
+        if(!currentUser) {
+            this.$router.push('/task-list')
+        }
+    },
     methods: {
         updateComplete() {
             this.$store.dispatch('setCompleted', this.task.id);
+            localStorage.removeItem('tasks')
+            localStorage.setItem('tasks', JSON.stringify(this.tasks))
         },
         deleteTask() {
             this.$store.dispatch('deleteTask', this.task.id)
