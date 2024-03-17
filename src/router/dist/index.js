@@ -7,6 +7,10 @@ var vue_router_1 = require("vue-router");
 var PageNotFound_vue_1 = require("@/Pages/PageNotFound.vue");
 var routes = [
     {
+        path: "/index.html",
+        redirect: "/task-list"
+    },
+    {
         path: '/task-list',
         component: LoginPage_vue_1["default"]
     },

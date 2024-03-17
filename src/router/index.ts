@@ -8,6 +8,10 @@ import PageNotFound from '@/Pages/PageNotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/index.html",
+    redirect: "/task-list" 
+  },
+  {
     path: '/task-list',
     component: LoginPage
   },
